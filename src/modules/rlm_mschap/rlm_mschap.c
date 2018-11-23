@@ -1115,8 +1115,11 @@ static int CC_HINT(nonnull (1, 2, 4, 5 , 6)) do_mschap(rlm_mschap_t const *inst,
 
 			/*
 			 *	look for "Password expired", or "Must change password".
+			 *      Fix: Some Windows Server versions report "Password has expired" or "password must be changed"
 			 */
 			if (strcasestr(buffer, "Password expired") ||
+			    strcasestr(buffer, "Password has expired") ||
+			    strcasestr(buffer, "password must be changed") ||
 			    strcasestr(buffer, "Must change password")) {
 				REDEBUG2("%s", buffer);
 				return -648;
